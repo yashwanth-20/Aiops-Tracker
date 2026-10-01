@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AIOps Snapshot Tracker</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <h1>AIOps Snapshot Tracker</h1>
+  <nav id="tabs">
+    <button class="tab active" data-view="eod">EOD Report</button>
+    <button class="tab" data-view="post">Post Snapshot</button>
+    <button class="tab" data-view="roster">Roster Calendar</button>
+    <button class="tab" data-view="monthly">Monthly Report</button>
+    <button class="tab" data-view="employees">Employees</button>
+  </nav>
+</header>
+
+<main>
+  <!-- EOD -->
+  <section id="view-eod" class="view">
+    <div class="toolbar">
+      <label>Date <input type="date" id="eodDate" /></label>
+      <button id="eodToday" class="ghost">Today</button>
+      <button id="eodExport" class="ghost">Export CSV</button>
+    </div>
+    <div id="eodSummary" class="cards"></div>
+    <div id="eodTable" class="table-wrap"></div>
+  </section>
+
+  <!-- Post snapshot -->
+  <section id="view-post" class="view hidden">
+    <div class="channel">
+      <form id="postForm" class="card form">
+        <h2>Post a snapshot</h2>
+        <label>Employee <select id="postEmployee" required></select></label>
+        <label>Date <input type="date" id="postDate" required /></label>
+        <span class="field-label">Snapshot image</span>
+        <div id="pasteZone" class="paste-zone" tabindex="0">
+          Click here and press <kbd>Ctrl</kbd>+<kbd>V</kbd> to paste your screenshot
+        </div>
+        <div id="postPreview" class="preview hidden">
+          <img id="postPreviewImg" alt="Snapshot preview" />
+          <button type="button" id="postImageClear" class="link">Remove image</button>
+        </div>
+        <label>Comments <textarea id="postComment" rows="5" placeholder="What was covered in the snapshot?"></textarea></label>
+        <div id="postRosterHint" class="hint"></div>
+        <div class="row">
+          <button type="submit">Mark as Posted</button>
+          <button type="button" id="postDelete" class="danger ghost hidden">Remove posting</button>
+        </div>
+        <div id="postMsg" class="msg"></div>
+      </form>
+
+      <div class="feed-col">
+        <div class="feed-head">
+          <h2>Channel</h2>
+          <span class="hint" id="feedRetention"></span>
+        </div>
+        <div id="feed"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roster -->
+  <section id="view-roster" class="view hidden">
+    <div class="toolbar">
+      <label>Employee <select id="rosterEmployee"></select></label>
+      <label>Month <input type="month" id="rosterMonth" /></label>
+      <button id="rosterReset" class="ghost">Reset month to default</button>
+    </div>
+    <p class="hint">Weekdays default to <strong>Working</strong>, weekends to <strong>Week Off</strong>. Click any date to flip it — use this for week-offs falling on weekdays or shifts on weekends.</p>
+    <div id="rosterLegend" class="legend">
+      <span class="chip working">Working</span>
+      <span class="chip off">Week Off</span>
+      <span class="chip posted">Posted</span>
+      <span class="chip missed">Not Posted</span>
+      <span class="chip edited">Edited</span>
+    </div>
+    <div id="calendar" class="calendar"></div>
+  </section>
+
+  <!-- Monthly -->
+  <section id="view-monthly" class="view hidden">
+    <div class="toolbar">
+      <label>Month <input type="month" id="monthlyMonth" /></label>
+      <button id="monthlyExport" class="ghost">Export CSV</button>
+    </div>
+    <div id="monthlySummary" class="cards"></div>
+    <div id="monthlyTable" class="table-wrap"></div>
+  </section>
+
+  <!-- Employees -->
+  <section id="view-employees" class="view hidden">
+    <div class="grid-2">
+      <form id="empForm" class="card form">
+        <h2>Add employee</h2>
+        <label>Name <input type="text" id="empName" required /></label>
+        <label>Employee ID <input type="text" id="empCode" /></label>
+        <label>Team <input type="text" id="empTeam" /></label>
+        <label>Shift <input type="text" id="empShift" placeholder="e.g. IST 9-6" /></label>
+        <button type="submit">Add</button>
+      </form>
+      <form id="bulkForm" class="card form">
+        <h2>Bulk add names</h2>
+        <label>One name per line
+          <textarea id="bulkNames" rows="10" placeholder="Paste the names from your list here"></textarea>
+        </label>
+        <button type="submit">Add all</button>
+        <div id="bulkMsg" class="msg"></div>
+      </form>
+    </div>
+    <div id="empTable" class="table-wrap"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

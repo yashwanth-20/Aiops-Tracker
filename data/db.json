@@ -1,0 +1,128 @@
+{
+  "employees": [
+    {
+      "id": "9f7b72f5-39b7-423c-a0d8-ae2d4637546e",
+      "name": "Kishan Rawate",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "4987a2aa-3fc9-4e7f-8df6-ff3d41b8387b",
+      "name": "Parella Venkateswararao",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "4a81c2fa-8960-4653-89ed-c79e98e2f046",
+      "name": "B Santhosh Kumar Reddy",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "f5ecbd67-088c-40bc-a2ec-df3351fd25f1",
+      "name": "SivaKumar Loganathan",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "64b29764-7936-482d-bbca-65e50635e10e",
+      "name": "K A Azeema Begum",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "73e6341b-33a1-48f8-91ae-ab56eb1fd403",
+      "name": "SATISH DASARI",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "c2fb6cea-6b9a-497e-a24f-b3dd1b833872",
+      "name": "Praneeth Mamgunta",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "ac741be2-0f57-4c96-8430-4b84d6b06097",
+      "name": "Malle Mouriya Teja",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "cd51254f-227d-43da-8ec3-19d64a38f863",
+      "name": "Bijjivemula Sravani",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "89e083e3-bc49-45a0-8ea0-84964e94fb29",
+      "name": "Naveen Bevara",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "a4f8aed8-b29f-4dae-8d2a-61cae3d8d129",
+      "name": "Shaik Muntaz Begum",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "592acf81-f6ec-48fb-b3a0-46fcf916c1f4",
+      "name": "Sivaram Sundararajan",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "350ac6b6-5799-4600-944f-701cba7c10ae",
+      "name": "Aatif Jawed Ashraf",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "2d8e8644-a088-4f8b-815c-3967a17adb98",
+      "name": "Yashwanth Kumar S",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    },
+    {
+      "id": "eef0070d-76c4-485c-98a7-1768d7becd3f",
+      "name": "Parveen Banu",
+      "empId": "",
+      "team": "",
+      "shift": "",
+      "active": true
+    }
+  ],
+  "rosterOverrides": {},
+  "snapshots": [],
+  "seq": 12,
+  "lastPurgedMonth": "2026-10"
+}
