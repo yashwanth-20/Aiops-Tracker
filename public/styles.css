@@ -190,32 +190,6 @@ td.comment { max-width: 420px; white-space: pre-wrap; }
 .feed-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
 .feed-head h2 { margin: 0; }
 
-.preview { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
-.preview img { max-width: 100%; max-height: 220px; border-radius: 8px; border: 1px solid var(--line); }
-
-.field-label { font-size: 12px; color: var(--muted); margin-bottom: -6px; }
-.paste-zone {
-  border: 1px dashed var(--line);
-  border-radius: 8px;
-  background: var(--panel-2);
-  color: var(--muted);
-  padding: 22px 14px;
-  text-align: center;
-  font-size: 13px;
-  cursor: text;
-}
-.paste-zone:hover { border-color: var(--accent); }
-.paste-zone:focus { outline: none; border-color: var(--accent); color: var(--text); }
-.paste-zone.dragover { border-color: var(--accent); color: var(--text); }
-.paste-zone kbd {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 1px 5px;
-  font-family: inherit;
-  font-size: 12px;
-}
-
 .post {
   background: var(--panel);
   border: 1px solid var(--line);

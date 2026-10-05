@@ -37,14 +37,6 @@
         <h2>Post a snapshot</h2>
         <label>Employee <select id="postEmployee" required></select></label>
         <label>Date <input type="date" id="postDate" required /></label>
-        <span class="field-label">Snapshot image</span>
-        <div id="pasteZone" class="paste-zone" tabindex="0">
-          Click here and press <kbd>Ctrl</kbd>+<kbd>V</kbd> to paste your screenshot
-        </div>
-        <div id="postPreview" class="preview hidden">
-          <img id="postPreviewImg" alt="Snapshot preview" />
-          <button type="button" id="postImageClear" class="link">Remove image</button>
-        </div>
         <label>Comments <textarea id="postComment" rows="5" placeholder="What was covered in the snapshot?"></textarea></label>
         <div id="postRosterHint" class="hint"></div>
         <div class="row">
@@ -98,9 +90,6 @@
       <form id="empForm" class="card form">
         <h2>Add employee</h2>
         <label>Name <input type="text" id="empName" required /></label>
-        <label>Employee ID <input type="text" id="empCode" /></label>
-        <label>Team <input type="text" id="empTeam" /></label>
-        <label>Shift <input type="text" id="empShift" placeholder="e.g. IST 9-6" /></label>
         <button type="submit">Add</button>
       </form>
       <form id="bulkForm" class="card form">

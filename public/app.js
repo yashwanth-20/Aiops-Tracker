@@ -144,27 +144,16 @@ $('#eodExport').addEventListener('click', () => {
 
 /* ---------------- post snapshot (channel) ---------------- */
 
-let pendingImage = null;   // base64 data URL waiting to be uploaded
-let clearImage = false;    // user removed an already-saved image
-
 async function loadPostForm() {
   if (!$('#postDate').value) $('#postDate').value = todayStr();
   await refreshPostContext();
   await loadFeed();
 }
 
-function showPreview(src) {
-  $('#postPreviewImg').src = src;
-  $('#postPreview').classList.toggle('hidden', !src);
-  if (!src) $('#postPreviewImg').removeAttribute('src');
-}
-
 async function refreshPostContext() {
   const employeeId = $('#postEmployee').value;
   const date = $('#postDate').value;
   $('#postMsg').textContent = '';
-  pendingImage = null;
-  clearImage = false;
   if (!employeeId || !date) return;
 
   const report = await api(`/api/reports/eod?date=${encodeURIComponent(date)}`);
@@ -172,68 +161,11 @@ async function refreshPostContext() {
   if (!row) return;
 
   $('#postComment').value = row.comment || '';
-  showPreview(row.image || '');
   $('#postRosterHint').innerHTML = `Roster for this day: <strong>${row.rosterType === 'W' ? 'Working' : 'Week Off'}</strong>
     &nbsp;·&nbsp; Current status: <span class="badge ${row.status}">${STATUS_LABEL[row.status]}</span>`;
   $('#postDelete').classList.toggle('hidden', !row.snapshotId);
   $('#postDelete').dataset.id = row.snapshotId || '';
 }
-
-function acceptImageFile(file) {
-  if (!file || !file.type.startsWith('image/')) return false;
-  const msg = $('#postMsg');
-  if (file.size > 8 * 1024 * 1024) {
-    msg.className = 'msg err';
-    msg.textContent = 'Image is larger than 8 MB.';
-    return true;
-  }
-  const reader = new FileReader();
-  reader.onload = () => {
-    pendingImage = reader.result;
-    clearImage = false;
-    showPreview(pendingImage);
-    msg.className = 'msg ok';
-    msg.textContent = 'Image pasted. Add your comment and post.';
-  };
-  reader.readAsDataURL(file);
-  return true;
-}
-
-function imageFromClipboard(e) {
-  const items = (e.clipboardData && e.clipboardData.items) || [];
-  for (const item of items) {
-    if (item.kind === 'file' && item.type.startsWith('image/')) return item.getAsFile();
-  }
-  return null;
-}
-
-// Paste anywhere on the Post Snapshot tab, not just inside the drop zone.
-document.addEventListener('paste', (e) => {
-  if ($('#view-post').classList.contains('hidden')) return;
-  const file = imageFromClipboard(e);
-  if (!file) return;
-  e.preventDefault();
-  acceptImageFile(file);
-});
-
-$('#pasteZone').addEventListener('click', () => $('#pasteZone').focus());
-
-$('#pasteZone').addEventListener('dragover', (e) => {
-  e.preventDefault();
-  $('#pasteZone').classList.add('dragover');
-});
-$('#pasteZone').addEventListener('dragleave', () => $('#pasteZone').classList.remove('dragover'));
-$('#pasteZone').addEventListener('drop', (e) => {
-  e.preventDefault();
-  $('#pasteZone').classList.remove('dragover');
-  acceptImageFile(e.dataTransfer.files && e.dataTransfer.files[0]);
-});
-
-$('#postImageClear').addEventListener('click', () => {
-  pendingImage = null;
-  clearImage = true;
-  showPreview('');
-});
 
 $('#postEmployee').addEventListener('change', refreshPostContext);
 $('#postDate').addEventListener('change', refreshPostContext);
@@ -247,9 +179,7 @@ $('#postForm').addEventListener('submit', async (e) => {
       body: JSON.stringify({
         employeeId: $('#postEmployee').value,
         date: $('#postDate').value,
-        comment: $('#postComment').value,
-        image: pendingImage || undefined,
-        removeImage: clearImage
+        comment: $('#postComment').value
       })
     });
     msg.className = 'msg ok';
@@ -267,7 +197,6 @@ $('#postDelete').addEventListener('click', async () => {
   if (!id || !confirm('Remove this posting? The day will go back to Not Posted.')) return;
   await api('/api/snapshots/' + encodeURIComponent(id), { method: 'DELETE' });
   $('#postComment').value = '';
-  showPreview('');
   await refreshPostContext();
   await loadFeed();
 });
@@ -453,9 +382,6 @@ async function renderEmployees() {
   }
   const body = employees.map((e) => `<tr data-id="${esc(e.id)}">
     <td>${esc(e.name)}</td>
-    <td>${esc(e.empId || '—')}</td>
-    <td>${esc(e.team || '—')}</td>
-    <td>${esc(e.shift || '—')}</td>
     <td>${e.active === false ? 'Inactive' : 'Active'}</td>
     <td class="row">
       <button class="link" data-act="toggle">${e.active === false ? 'Activate' : 'Deactivate'}</button>
@@ -465,7 +391,7 @@ async function renderEmployees() {
   </tr>`).join('');
 
   $('#empTable').innerHTML = `<table><thead><tr>
-      <th>Name</th><th>Emp ID</th><th>Team</th><th>Shift</th><th>State</th><th>Actions</th>
+      <th>Name</th><th>State</th><th>Actions</th>
     </tr></thead><tbody>${body}</tbody></table>`;
 }
 
@@ -497,10 +423,7 @@ $('#empForm').addEventListener('submit', async (e) => {
   await api('/api/employees', {
     method: 'POST',
     body: JSON.stringify({
-      name: $('#empName').value,
-      empId: $('#empCode').value,
-      team: $('#empTeam').value,
-      shift: $('#empShift').value
+      name: $('#empName').value
     })
   });
   e.target.reset();
